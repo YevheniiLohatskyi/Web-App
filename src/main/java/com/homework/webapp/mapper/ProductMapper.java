@@ -25,10 +25,11 @@ public class ProductMapper {
     }
 
     public ProductEntity mapProductToProductEntity(Product product){
-        return new ProductEntity()
-                .setId(product.getId())
+        ProductEntity entity = new ProductEntity()
                 .setName(product.getName())
                 .setPrice(product.getPrice())
                 .setManufacturer(product.getManufacturer());
+        entity.setId(product.getId());
+        return entity;
     }
 }

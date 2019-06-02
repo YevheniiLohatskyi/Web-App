@@ -22,8 +22,9 @@ public class RoleMapper {
     }
 
     public RoleEntity mapRoleToRoleEntity(Role role){
-        return new RoleEntity()
-                .setId(role.getId())
+        RoleEntity entity = new RoleEntity()
                 .setName(role.getName());
+        entity.setId(role.getId());
+        return entity;
     }
 }

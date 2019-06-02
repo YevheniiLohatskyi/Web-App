@@ -23,9 +23,10 @@ public class ManufacturerMapper {
     }
 
     public ManufacturerEntity mapManufacturerToManufacturerEntity(Manufacturer manufacturer){
-        return new ManufacturerEntity()
-                .setId(manufacturer.getId())
+        ManufacturerEntity entity = new ManufacturerEntity()
                 .setName(manufacturer.getName())
                 .setProducts(manufacturer.getProducts());
+        entity.setId(manufacturer.getId());
+        return entity;
     }
 }
