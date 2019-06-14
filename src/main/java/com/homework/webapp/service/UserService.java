@@ -1,46 +1,47 @@
 package com.homework.webapp.service;
 
+import com.homework.webapp.dto.User;
 import com.homework.webapp.exception.NotFoundEntityException;
-import com.homework.webapp.model.UserEntity;
+import com.homework.webapp.mapper.UserMapper;
 import com.homework.webapp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class UserService implements BaseService<UserEntity> {
+public class UserService implements BaseService<User> {
     private final UserRepository repository;
+    private final UserMapper mapper;
 
     @Override
-    public void createOne(UserEntity entity) {
-        repository.save(entity);
+    public void createOne(User user) {
+        repository.save(mapper.mapUserToUserEntity(user));
     }
 
     @Override
-    public void updateOne(UserEntity entity) {
-        repository.save(entity);
+    public void updateOne(User user) {
+        repository.save(mapper.mapUserToUserEntity(user));
     }
 
     @Override
-    public void deleteOneById(UUID id) {
+    public void deleteOneById(Long id) {
         repository.deleteById(id);
     }
 
     @Override
-    public UserEntity findOneById(UUID id) throws NotFoundEntityException {
-        return repository.findById(id).orElseThrow(() -> new NotFoundEntityException(id));
+    public User findOneById(Long id) throws NotFoundEntityException {
+        return mapper.mapUserEntityToUser(repository.findById(id).orElseThrow(NotFoundEntityException::new));
     }
 
-    public UserEntity findOneByEmail(String email) throws NotFoundEntityException {
-        return repository.findByEmail(email).orElseThrow(NotFoundEntityException::new);
+    public User findOneByEmail(String email) throws NotFoundEntityException {
+        return mapper.mapUserEntityToUser(repository.findByEmail(email).orElseThrow(NotFoundEntityException::new));
     }
 
     @Override
-    public List<UserEntity> findAll() {
-        return repository.findAll();
+    public List<User> findAll() {
+        return mapper.mapUserEntitiesToUsers(repository.findAll());
     }
 }

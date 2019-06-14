@@ -1,18 +1,13 @@
 package com.homework.webapp.model;
 
+import com.homework.webapp.listener.ProductEntityListener;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -26,12 +21,16 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @Accessors(chain = true)
 @Table(name = "products")
+@EntityListeners(ProductEntityListener.class)
 public class ProductEntity{
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "product_id")
-    private UUID id;
+    private Long id;
+
+    @Column(name = "uuid")
+    private UUID uuid;
 
     @Column(name = "name", nullable = false)
     private String name;

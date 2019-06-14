@@ -12,6 +12,7 @@ public class ManufacturerMapper {
     public Manufacturer mapManufacturerEntityToManufacturer(ManufacturerEntity entity){
         return new Manufacturer()
                 .setId(entity.getId())
+                .setUuid(entity.getUuid())
                 .setName(entity.getName())
                 .setProducts(entity.getProducts());
     }
@@ -23,10 +24,10 @@ public class ManufacturerMapper {
     }
 
     public ManufacturerEntity mapManufacturerToManufacturerEntity(Manufacturer manufacturer){
-        ManufacturerEntity entity = new ManufacturerEntity()
+        return new ManufacturerEntity()
+                .setId(manufacturer.getId())
+                .setUuid(manufacturer.getUuid())
                 .setName(manufacturer.getName())
                 .setProducts(manufacturer.getProducts());
-        entity.setId(manufacturer.getId());
-        return entity;
     }
 }

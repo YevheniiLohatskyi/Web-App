@@ -1,42 +1,43 @@
 package com.homework.webapp.service;
 
+import com.homework.webapp.dto.Product;
 import com.homework.webapp.exception.NotFoundEntityException;
-import com.homework.webapp.model.ProductEntity;
+import com.homework.webapp.mapper.ProductMapper;
 import com.homework.webapp.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class ProductService implements BaseService<ProductEntity> {
+public class ProductService implements BaseService<Product> {
     private final ProductRepository repository;
+    private final ProductMapper mapper;
 
     @Override
-    public void createOne(ProductEntity entity) {
-        repository.save(entity);
+    public void createOne(Product product) {
+        repository.save(mapper.mapProductToProductEntity(product));
     }
 
     @Override
-    public void updateOne(ProductEntity entity) {
-        repository.save(entity);
+    public void updateOne(Product product) {
+        repository.save(mapper.mapProductToProductEntity(product));
     }
 
     @Override
-    public void deleteOneById(UUID id) {
+    public void deleteOneById(Long id) {
         repository.deleteById(id);
     }
 
     @Override
-    public ProductEntity findOneById(UUID id) throws NotFoundEntityException {
-        return repository.findById(id).orElseThrow(() -> new NotFoundEntityException(id));
+    public Product findOneById(Long id) throws NotFoundEntityException {
+        return mapper.mapProductEntityToProduct(repository.findById(id).orElseThrow(NotFoundEntityException::new));
     }
 
     @Override
-    public List<ProductEntity> findAll() {
-        return repository.findAll();
+    public List<Product> findAll() {
+        return mapper.mapProductEntitiesToProducts(repository.findAll());
     }
 }

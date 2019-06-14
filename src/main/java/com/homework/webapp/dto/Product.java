@@ -16,7 +16,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @Accessors(chain = true)
 public class Product {
-    private UUID id;
+    private Long id;
+
+    private UUID uuid;
 
     private String name;
 

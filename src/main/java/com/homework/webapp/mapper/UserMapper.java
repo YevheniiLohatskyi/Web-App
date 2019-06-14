@@ -13,6 +13,7 @@ public class UserMapper {
     public User mapUserEntityToUser(UserEntity entity) {
         return new User()
                 .setId(entity.getId())
+                .setUuid(entity.getUuid())
                 .setEmail(entity.getEmail())
                 .setPassword(entity.getPassword())
                 .setFirstName(entity.getFirstName())
@@ -27,13 +28,13 @@ public class UserMapper {
     }
 
     public UserEntity mapUserToUserEntity(User user) {
-        UserEntity entity = new UserEntity()
+        return new UserEntity()
+                .setId(user.getId())
+                .setUuid(user.getUuid())
                 .setEmail(user.getEmail())
                 .setPassword(user.getPassword())
                 .setFirstName(user.getFirstName())
                 .setLastName(user.getLastName())
                 .setRole(user.getRole());
-        entity.setId(user.getId());
-        return entity;
     }
 }

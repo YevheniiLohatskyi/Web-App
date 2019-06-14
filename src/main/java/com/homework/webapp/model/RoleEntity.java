@@ -1,21 +1,15 @@
 package com.homework.webapp.model;
 
+import com.homework.webapp.listener.RoleEntityListener;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
-import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
@@ -25,12 +19,16 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @Accessors(chain = true)
 @Table(name = "roles")
+@EntityListeners(RoleEntityListener.class)
 public class RoleEntity{
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "role_id")
-    private UUID id;
+    private Long id;
+
+    @Column(name = "uuid")
+    private UUID uuid;
 
     @Column(name = "name", nullable = false)
     private String name;

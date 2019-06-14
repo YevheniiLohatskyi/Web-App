@@ -13,6 +13,7 @@ public class ProductMapper {
     public Product mapProductEntityToProduct(ProductEntity entity){
         return new Product()
                 .setId(entity.getId())
+                .setUuid(entity.getUuid())
                 .setName(entity.getName())
                 .setPrice(entity.getPrice())
                 .setManufacturer(entity.getManufacturer());
@@ -25,11 +26,11 @@ public class ProductMapper {
     }
 
     public ProductEntity mapProductToProductEntity(Product product){
-        ProductEntity entity = new ProductEntity()
+        return new ProductEntity()
+                .setId(product.getId())
+                .setUuid(product.getUuid())
                 .setName(product.getName())
                 .setPrice(product.getPrice())
                 .setManufacturer(product.getManufacturer());
-        entity.setId(product.getId());
-        return entity;
     }
 }

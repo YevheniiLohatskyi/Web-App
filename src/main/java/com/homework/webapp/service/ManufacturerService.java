@@ -1,42 +1,43 @@
 package com.homework.webapp.service;
 
+import com.homework.webapp.dto.Manufacturer;
 import com.homework.webapp.exception.NotFoundEntityException;
-import com.homework.webapp.model.ManufacturerEntity;
+import com.homework.webapp.mapper.ManufacturerMapper;
 import com.homework.webapp.repository.ManufacturerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class ManufacturerService implements BaseService<ManufacturerEntity> {
+public class ManufacturerService implements BaseService<Manufacturer> {
     private final ManufacturerRepository repository;
+    private final ManufacturerMapper mapper;
 
     @Override
-    public void createOne(ManufacturerEntity entity) {
-        repository.save(entity);
+    public void createOne(Manufacturer manufacturer) {
+        repository.save(mapper.mapManufacturerToManufacturerEntity(manufacturer));
     }
 
     @Override
-    public void updateOne(ManufacturerEntity entity) {
-        repository.save(entity);
+    public void updateOne(Manufacturer manufacturer) {
+        repository.save(mapper.mapManufacturerToManufacturerEntity(manufacturer));
     }
 
     @Override
-    public void deleteOneById(UUID id) {
+    public void deleteOneById(Long id) {
         repository.deleteById(id);
     }
 
     @Override
-    public ManufacturerEntity findOneById(UUID id) throws NotFoundEntityException {
-        return repository.findById(id).orElseThrow(() -> new NotFoundEntityException(id));
+    public Manufacturer findOneById(Long id) throws NotFoundEntityException {
+        return mapper.mapManufacturerEntityToManufacturer(repository.findById(id).orElseThrow(NotFoundEntityException::new));
     }
 
     @Override
-    public List<ManufacturerEntity> findAll() {
-        return repository.findAll();
+    public List<Manufacturer> findAll() {
+        return mapper.mapManufacturerEntitiesToManufacturers(repository.findAll());
     }
 }

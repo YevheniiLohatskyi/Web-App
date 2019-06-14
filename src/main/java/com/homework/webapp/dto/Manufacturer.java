@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -16,9 +16,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @Accessors(chain = true)
 public class Manufacturer {
-    private UUID id;
+    private Long id;
+
+    private UUID uuid;
 
     private String name;
 
-    private Set<ProductEntity> products;
+    private List<ProductEntity> products;
 }

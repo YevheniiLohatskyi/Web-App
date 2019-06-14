@@ -15,7 +15,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @Accessors(chain = true)
 public class User {
-    private UUID id;
+    private Long id;
+
+    private UUID uuid;
 
     private String email;
 

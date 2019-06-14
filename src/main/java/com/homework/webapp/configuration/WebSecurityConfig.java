@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
@@ -17,8 +18,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/index").permitAll()
+                //.anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -38,5 +39,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .build();
 
         return new InMemoryUserDetailsManager(user);
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }

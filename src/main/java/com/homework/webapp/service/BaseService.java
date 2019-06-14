@@ -12,9 +12,9 @@ public interface BaseService<T> {
 
     void updateOne(T entity);
 
-    void deleteOneById(UUID id);
+    void deleteOneById(Long id);
 
-    T findOneById(UUID id) throws NotFoundEntityException;
+    T findOneById(Long id) throws NotFoundEntityException;
 
     List<T> findAll();
 }
