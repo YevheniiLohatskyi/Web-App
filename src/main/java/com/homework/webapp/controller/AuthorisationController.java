@@ -23,12 +23,12 @@ public class AuthorisationController {
     private final RoleMapper mapper;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-   @GetMapping("/login")
+   @GetMapping(path = "/login")
     public String loginPage(){
        return "login";
     }
 
-    @GetMapping("/registration-form")
+    @GetMapping(path = "/registration-form")
     public ModelAndView registerForm(){
         User user = new User();
         ModelAndView modelAndView = new ModelAndView("registration_form");
@@ -44,6 +44,6 @@ public class AuthorisationController {
         user.setRole(mapper.mapRoleToRoleEntity(role));
         userService.createOne(user);
 
-        return "redirect:/admin/users";
+        return "redirect:/";
     }
 }

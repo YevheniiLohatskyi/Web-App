@@ -1,20 +1,15 @@
 package com.homework.webapp.controller;
 
 import com.homework.webapp.dto.Manufacturer;
+import com.homework.webapp.exception.NotFoundEntityException;
 import com.homework.webapp.service.ManufacturerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -30,30 +25,36 @@ public class ManufacturerController {
         return "manufacturers";
     }
 
-    @GetMapping(path = "/add")
+    @GetMapping(path = "/{id}")
+    public String getManufacturer(Model model, @PathVariable Long id) throws NotFoundEntityException {
+        model.addAttribute(service.findOneById(id));
+        return "redirect:/manufacturers/"+ id + "/products";
+    }
+
+    @PostMapping(path = "/add")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public String createManufacturer(@Valid Model model) {
+    public String createManufacturer(Model model) {
         model.addAttribute("manufacturer", new Manufacturer());
-        return "edit";
+        return "edit_manufacturer";
     }
 
     @PostMapping(path = "/")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public String saveManufacturer(@RequestBody Manufacturer manufacturer) {
         service.createOne(manufacturer);
-        return "redirect:/";
+        return "redirect:/manufacturers";
     }
 
-    @GetMapping(path = "/edit")
+    @PutMapping(path = "/edit/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public String editManufacturer(@Valid Model model, @RequestParam Long id) throws Throwable {
+    public String editManufacturer(Model model, @PathVariable Long id) throws Throwable {
         model.addAttribute("manufacturer", service.findOneById(id));
-        return "edit";
+        return "edit_manufacturer";
     }
 
-    @DeleteMapping(path = "/delete")
+    @DeleteMapping(path = "/delete/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public String deleteManufacturer(@RequestParam Long id) {
+    public String deleteManufacturer(@PathVariable Long id) {
         service.deleteOneById(id);
         return "redirect:/manufacturers";
     }
