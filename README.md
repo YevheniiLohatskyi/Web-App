@@ -1,46 +1,45 @@
-ВЕБ-ПРИЛОЖЕНИЕ / WEB-APPLICATION
+WEB-APPLICATION
 
-Необходимо создать веб-приложение, которое позволяет:
-1. Выполнять регистрацию пользоваталей
-2. Выполнять авторизацию пользователей
-3. Выполнять CRUD операции над следующими объектами:
+Need to create a web-application which allows:
+1. Perform user registration
+2. Perform user authorisation
+3. Perform CRUD operations on next objects:
 ----------------------
-Продукт:
-
-•	UUID;
-•	Имя;
-•	BigDecimal цена;
-•	Производитель;
-----------------------
-Производитель:
+Product:
 
 •	UUID;
-•	Имя;
-•	Продукты <Product>;
+•	Name;
+•	BigDecimal price;
+•	Manufacturer;
 ----------------------
-Роль:
+Manufacturer:
 
 •	UUID;
-•	Имя;
+•	Name;
+•	Products <Product>;
 ----------------------
-Пользователь:
+Role:
+
+•	UUID;
+•	Name;
+----------------------
+User:
 
 •	UUID;
 •	email;
-•	Строковый пароль;
+•	String password;
 •	firstName;
 •	lastName;
-•	Роли <Role>;
+•	Roles <Role>;
 ----------------------
-Роли пользователей:
-1. Admin - имеет возможность выполнять все операции CRUD
-2. Пользователь - имеет доступ только для чтения
+User roles:
+1. Admin - is able to perform all CRUD operations
+2. User - has read-only access
 
-В базе данных хранятся данные о производителях (Производитель) и товарах (Продукт).
-Каждый товар имеет одного производителя, и каждый производитель имеет набор товаров.
+Data about Manufacturers and Products is stored in DB.
+Every Product has one Manufacturer and every Manufacturer has a bunch of Products.
 
-Необходимо придерживаться паттерна MVC (model, view, controller).
-Все классы должны быть грамотно разложены по пакетам и грамотно именованы (модель, дао, контроллер).
+It is necessary to follow the MVC pattern (model, view, controller).
 
-Технологии:
-Java, SQL, Spring (MVC, Data, Security, Spring Boot), JSP или (HTML и CSS), Maven, Tomcat, Git
+Technology stack:
+Java, SQL, Spring (MVC, Data, Security, Spring Boot), JSP or (HTML/CSS), Maven, Tomcat, Git
